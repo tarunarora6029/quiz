@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
+
+    <!-- Navbar -->
+    <div style="background-color: #007bff; padding: 10px; text-align: center;">
+        <a href="{{ url_for('user_scores', username=session['username']) }}" style="color: white; text-decoration: none; margin: 0 15px; font-size: 18px;">Scores</a>
+        <a href="/" style="color: white; text-decoration: none; margin: 0 15px; font-size: 18px;">Logout</a>
+    </div>
+
+    <div style="width: 80%; margin: auto; padding: 20px; background: white; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 10px; margin-top: 20px;">
+        <h2>Welcome, {{ user }}</h2>
+        <p>Select a quiz to attempt:</p>
+
+        <!-- List of Available Quizzes -->
+        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+            {% for quiz in quizzes %}
+            <div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); width: 300px; text-align: center;">
+                <h3>{{ quiz.quiz }}</h3>
+                <p><strong>Subject:</strong> {{ quiz.subject }}</p>
+                <p><strong>Chapter:</strong> {{ quiz.chapter }}</p>
+                <p><strong>Deadline:</strong> {{ quiz.deadline }}</p>
+                <a href="{{ url_for('attempt_quiz', quiz=quiz.quiz) }}">
+                    <button style="background-color: #28a745; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;">Attempt Quiz</button>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</body>
+</html>

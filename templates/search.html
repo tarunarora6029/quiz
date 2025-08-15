@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
+
+    <!-- Navbar -->
+    <div style="background-color: #007bff; padding: 10px; text-align: center;">
+        <a href="{{ url_for('admindashboard') }}" style="color: white; text-decoration: none; margin: 0 15px; font-size: 18px;">Home</a>
+        <a href="/details" style="color: white; text-decoration: none; margin: 0 15px; font-size: 18px;">Details</a>
+        <a href="/" style="color: white; text-decoration: none; margin: 0 15px; font-size: 18px;">Logout</a>
+    </div>
+
+    <div style="width: 80%; margin: auto; padding: 20px; background: white; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 10px; margin-top: 20px;">
+        <h2>Search</h2>
+
+        <!-- Search Form -->
+        <div style="background: #ffffff; padding: 15px; border-radius: 5px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
+            <form method="GET" action="{{ url_for('search') }}">
+                <input type="text" name="query" placeholder="Search Quiz, User, Subject, or Chapter" required
+                       style="width: 70%; padding: 10px; margin-right: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                <button type="submit"
+                        style="padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; border-radius: 5px;">
+                    Search
+                </button>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        {% if results %}
+        <h3>Search Results</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+            {% for result in results %}
+            <div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); width: 300px;">
+                {% if result.__tablename__ == "quiz" %}
+                <h4 style="margin: 0 0 10px;">📘 Quiz: {{ result.quiz }}</h4>
+                <p>Subject: {{ result.subject }}</p>
+                <p>Chapter: {{ result.chapter }}</p>
+                <a href="{{ url_for('view_quiz', quiz=result.quiz) }}">
+                    <button style="background: #28a745; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer;">
+                        View
+                    </button>
+                </a>
+                {% elif result.__tablename__ == "user" %}
+                <h4 style="margin: 0 0 10px;">👤 User: {{ result.username }}</h4>
+                <p>Name: {{ result.name }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
