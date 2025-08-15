@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attempt Quiz - {{ quiz }}</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
+
+    <div style="width: 80%; margin: auto; padding: 20px; background: white; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 10px; margin-top: 20px;">
+        <h2>Attempt Quiz - {{ quiz }}</h2>
+        <p>Answer the following questions:</p>
+
+        <!-- Quiz Form -->
+        <form method="POST" action="{{ url_for('submit_quiz', quiz=quiz) }}">
+            {% for question in questions %}
+            <div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); margin-bottom: 15px;">
+                <strong>{{ loop.index }}. {{ question.question }}</strong><br>
+                <label><input type="radio" name="q{{ question.qid }}" value="1" required> {{ question.option1 }}</label><br>
+                <label><input type="radio" name="q{{ question.qid }}" value="2"> {{ question.option2 }}</label><br>
+                <label><input type="radio" name="q{{ question.qid }}" value="3"> {{ question.option3 }}</label><br>
+                <label><input type="radio" name="q{{ question.qid }}" value="4"> {{ question.option4 }}</label>
+            </div>
+            {% endfor %}
+
+            <button type="submit" style="background-color: #28a745; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;">Submit Quiz</button>
+        </form>
+
+    </div>
+
+</body>
+</html>

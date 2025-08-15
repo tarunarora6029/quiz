@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - User Scores & Stats</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
+
+    <!-- Navbar -->
+    <div style="background-color: #007bff; padding: 10px; text-align: center;">
+        <a href="{{ url_for('admindashboard') }}" style="color: white; text-decoration: none; margin: 0 15px; font-size: 18px;">Home</a>
+        <a href="{{ url_for('search') }}" style="color: white; text-decoration: none; margin: 0 15px; font-size: 18px;">Search</a>
+        <a href="/" style="color: white; text-decoration: none; margin: 0 15px; font-size: 18px;">Logout</a>
+    </div>
+
+    <div style="width: 80%; margin: auto; padding: 20px; background: white; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 10px; margin-top: 20px;">
+        <h2>Admin Dashboard - User Scores & Statistics</h2>
+
+        <!-- Statistics -->
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+            <div style="background: #28a745; color: white; padding: 15px; border-radius: 10px; width: 30%; text-align: center;">
+                <h3>{{ total_users }}</h3>
+                <p>Total Users</p>
+            </div>
+            <div style="background: #ffc107; color: black; padding: 15px; border-radius: 10px; width: 30%; text-align: center;">
+                <h3>{{ total_quizzes }}</h3>
+                <p>Total Quizzes</p>
+            </div>
+            <div style="background: #17a2b8; color: white; padding: 15px; border-radius: 10px; width: 30%; text-align: center;">
+                <h3>{{ avg_score }}</h3>
+                <p>Average Score</p>
+            </div>
+        </div>
+
+        <!-- Scores List -->
+        <h3>User Scores</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+            {% for score in scores %}
+            <div style="background: white; padding: 15px; border-radius: 10px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); width: 300px;">
+                <h4>👤 {{ score.username }}</h4>
+                <p>Quiz: {{ score.quiz }}</p>
+                <p>Score: <strong>{{ score.score }}</strong></p>
+                <p>Completed on: {{ score.time.strftime('%Y-%m-%d %H:%M') }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</body>
+</html>
